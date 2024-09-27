@@ -78,7 +78,7 @@ INSERT INTO salary (employee_id, payrate_id)
     );
 
 INSERT INTO receipt (salary_id, payment_date, base_amount, comission_amount)
-    VALUES (
+        ,VALUES (
         (
             SELECT salary.id FROM salary JOIN employee
             ON salary.employee_id = employee.id

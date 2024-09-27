@@ -1,2 +1,2 @@
 #!/bin/bash
-psql -U testuser -d test -p 5435 -h localhost
+psql -U admin -d zarplata -p 5435 -h localhost

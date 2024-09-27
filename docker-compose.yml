@@ -6,7 +6,7 @@ services:
     build: .
     restart: unless-stopped
     volumes:
-      - ./postgres-data/:/var/lib/postgresql/
+      - ./postgres-data:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
