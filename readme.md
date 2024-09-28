@@ -1,8 +1,7 @@
 # Установка:
 > git clone https://github.com/ChainsAre2Tight/zsubd-zarplata
 # Обновление:
-> git fetch
-> git pull
+> git fetch & git pull
 # Первый запуск (или после обновления):
 > (sudo) docker-compose build
 # Запуск:
