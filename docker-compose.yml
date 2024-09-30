@@ -23,6 +23,9 @@ services:
     restart: unless-stopped
     env_file:
       - ./services/client/.env.client
+    working_dir: /usr/src/sql
+    volumes:
+      - ./sql:/usr/src/sql
     command: -h postgres-server
     stdin_open: true
     tty: true
