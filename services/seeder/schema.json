@@ -1,0 +1,26 @@
+
+{   
+    "type": "object",
+    "properties": {
+        "employees": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "fio": {"type": "string"},
+                    "payment_method": {"type": "string"},
+                    "receipt_address": {"type": "string"}
+                },
+                "additionalProperties": false,
+                "required": [
+                    "fio",
+                    "payment_method",
+                    "receipt_address"
+                ]
+            }
+        }
+    },
+    "required": [
+        "employees"
+    ]
+}
