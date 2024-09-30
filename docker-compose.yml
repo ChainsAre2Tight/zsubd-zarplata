@@ -1,7 +1,4 @@
-version: '3.9'
-
 services:
-
   db:
     container_name: postgres-server
     build: ./services/server/
@@ -19,16 +16,13 @@ services:
       interval: 5s
       timeout: 60s
       retries: 5
-      start_period: 5s
-
+      start_period: 10s
   client:
     image: jbergknoff/postgresql-client
     container_name: postgres-client
     restart: unless-stopped
     env_file:
       - ./services/client/.env.client
-    expose:
-      - 5432
     command: -h postgres-server
     stdin_open: true
     tty: true
