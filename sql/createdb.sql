@@ -70,4 +70,3 @@ CREATE TABLE receipt (
     receipt_text TEXT,
     CONSTRAINT valid_amount CHECK (base_amount >= 0)
 );
-

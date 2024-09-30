@@ -127,10 +127,10 @@ INSERT INTO receipt (salary_id, payment_date, base_amount, comission_amount)
         )
     );
 
--- SELECT * FROM employee;
--- SELECT * FROM vacation;
--- SELECT * FROM fulfilled_order;
--- SELECT * FROM workday;
--- SELECT * FROM payrate;
--- SELECT * FROM salary;
+SELECT * FROM employee;
+SELECT * FROM vacation;
+SELECT * FROM fulfilled_order;
+SELECT * FROM workday;
+SELECT * FROM payrate;
+SELECT * FROM salary;
 SELECT * FROM receipt;
