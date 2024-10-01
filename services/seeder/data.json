@@ -1,8 +1,33 @@
 {
-    "emloyees": [
+    "payrates": [
+        {
+            "base_rate": 500.00,
+            "comission": 0.05,
+            "salary_type": "hourly",
+            "payment_period": "monthly"
+        }
+    ],
+    "employees": [
         {
             "fio": "Gofmann Igor Avraalovich",
-            "payment_method": "card 1234 5678 9012 3456"
+            "payment_method": "card 1234 5678 9012 3456",
+            "receipt_address": "kvartira na peysah",
+            "vacations": [
+                {
+                    "start": "6.12.2024",
+                    "end": "15.12.2024"
+                }, {
+                    "start": "12.05.2025",
+                    "end": "15.05.2025"
+                }
+            ],
+            "orders": [
+                {
+                    "date": "05.09.2024",
+                    "amount": 1234.56
+                }
+            ],
+            "payrateId": 1
         }
     ]
 }

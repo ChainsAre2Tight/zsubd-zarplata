@@ -1,7 +1,19 @@
-
 {   
     "type": "object",
     "properties": {
+        "payrates": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "base_rate": {"type": "number", "exclusiveMinimun": 0},
+                    "comission": {"type": "number", "enum": [0.00, 0.01, 0.03, 0.05]},
+                    "salary_type": {"type": "string", "enum": ["hourly", "monthly"]},
+                    "payment_period": {"type": "string", "enum": ["monthly", "biweekly"]}
+                },
+                "required": ["base_rate", "comission", "salary_type", "payment_period"]
+            }
+        },
         "employees": {
             "type": "array",
             "items": {
@@ -9,18 +21,45 @@
                 "properties": {
                     "fio": {"type": "string"},
                     "payment_method": {"type": "string"},
-                    "receipt_address": {"type": "string"}
+                    "receipt_address": {"type": "string"},
+                    "vacations": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "start": {"type": "string"},
+                                "end": {"type": "string"}
+                            },
+                            "required": ["start", "end"]
+                        }
+                    },
+                    "orders": {
+                        "type":"array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "date": {"type": "string"},
+                                "amount": {"type": "number", "exclusiveMinimun": 0}
+                            }
+                        }
+                    },
+                    "payrateId": {"type": "integer"}
+
                 },
                 "additionalProperties": false,
                 "required": [
                     "fio",
                     "payment_method",
-                    "receipt_address"
+                    "receipt_address",
+                    "vacations",
+                    "orders",
+                    "payrateId"
                 ]
             }
         }
     },
     "required": [
-        "employees"
+        "employees",
+        "payrates"
     ]
 }
