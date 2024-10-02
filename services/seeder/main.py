@@ -1,8 +1,66 @@
 from dotenv import load_dotenv
 from connection import ConnectionFactory, Connection
+import json
+from jsonschema import validate
 
 if __name__ == "__main__":
     load_dotenv()
     factory = ConnectionFactory()
-    with factory.create(Connection) as connection:
-        print('lox')
+    data: dict = None
+    with open('schema.json') as schema_file:
+        schema = json.load(schema_file)
+        with open('data.json') as data_file:
+            data = json.load(data_file)
+            validate(instance=data, schema=schema)
+    
+    # insert payrates
+    for payrate in data['payrates']:
+        with factory.create(Connection) as connection:
+            cursor = connection.cursor
+            cursor.execute(
+                'INSERT INTO payrate (base_rate, commission, salaty_type, payment_period) VALUES (%s, %s, %s, %s)',
+                (payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
+            )
+            print('inserted payrate', payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
+
+    # for each employee
+    for employee in data['employees']:
+        # insert him
+        with factory.create(Connection) as connection:
+            cursor = connection.cursor
+            cursor.execute(
+                'INSERT INTO employee (fio, payment_method, receipt_address) VALUES (%s, %s, %s);',
+                (employee['fio'], employee['payment_method'], employee['receipt_address'])
+            )
+            print('added employee', employee['fio'], employee['payment_method'], employee['receipt_address'])
+            
+            # query his UUID
+            cursor.execute(
+                '''SELECT id FROM employee WHERE fio = %s AND receipt_address = %s;''',
+                (employee["fio"], employee['receipt_address'])
+            )
+            employee['id'] = cursor.fetchone()[0]
+            print('his uuid is', employee['id'])
+
+            # insert his vacations
+            for vacation in employee['vacations']:
+                cursor.execute(
+                    'INSERT INTO vacation (employee_id, begin_date, end_date) VALUES (%s, %s, %s);',
+                    (employee['id'], vacation['start'], vacation['end'])
+                )
+                print('inserted vacation', employee['id'], vacation['start'], vacation['end'])
+            # insert his orders
+            for order in employee['orders']:
+                cursor.execute(
+                    'INSERT INTO fulfilled_order (employee_id, amount, fullfillment_date) VALUES (%s, %s, %s);',
+                    (employee['id'], order['amount'], order['date'])
+                )
+                print('inserted order', employee['id'], order['amount'], order['date'])
+            # insert his salary
+            cursor.execute(
+                'INSERT INTO salary (employee_id, payrate_id) VALUES (%s, %s);',
+                (employee['id'], employee['payrateId'])
+            )
+            print('inserted salary', employee['id'], employee['payrateId'])
+
+    

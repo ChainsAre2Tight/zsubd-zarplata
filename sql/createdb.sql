@@ -39,8 +39,8 @@ CREATE TABLE fulfilled_order (
     employee_id UUID REFERENCES employee(id),
     amount NUMERIC(10,2) NOT NULL,
     fullfillment_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    CONSTRAINT valid_amount CHECK (amount > 0),
-    CONSTRAINT valid_date CHECK (abs(CURRENT_DATE::date - fullfillment_date::date) < 1)
+    CONSTRAINT valid_amount CHECK (amount > 0)--,
+    -- CONSTRAINT valid_date CHECK (abs(CURRENT_DATE::date - fullfillment_date::date) < 1)
 );
 
 CREATE TABLE payrate (
