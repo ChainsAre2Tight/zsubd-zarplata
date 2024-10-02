@@ -57,5 +57,10 @@ if __name__ == "__main__":
                 (employee['id'], employee['payrateId'])
             )
             print('inserted salary', employee['id'], employee['payrateId'])
+            for workday in employee['workdays']:
+                cursor.execute(
+                    'INSERT INTO workday (employee_id, workday_date, entry_time, exit_time) VALUES (%s, %s, %s, %s);',
+                    (employee['id'], workday['workday_date'], workday['entry_time'], workday['exit_time'])
+                )
 
     
