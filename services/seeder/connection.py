@@ -22,7 +22,7 @@ class Connection(BaseConnection):
 
     def __enter__(self):
         print('Connecting to database...')
-        self.connection = psycopg2.connect(host=self._host, password=self._password, user=self._user, dbname=self._database, port=self._port)
+        self.connection = psycopg2.connect(host=self._host, password=self._password, user=self._user, dbname=self._database, port=self._port, options="-c datestyle=ISO,DMY")
         print(f'Connected to database')
         self.cursor = self.connection.cursor()
         return self
