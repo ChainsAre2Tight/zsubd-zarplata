@@ -52,7 +52,7 @@
             "vacations": [
                 {
                     "start": "10.11.2025",
-                    "end": "11.11.2026"
+                    "end": "19.11.2025"
                 }
             ],
             "orders": [
@@ -86,7 +86,7 @@
             "vacations": [
                 {
                     "start": "09.09.2023",
-                    "end": "15.12.2024"
+                    "end": "12.09.2023"
                 }
             ],
             "orders": [
@@ -102,7 +102,7 @@
             "receipt_address": "Smolensk region, Stupino city, Gagarin entrance, 02",
             "vacations": [
                 {
-                    "start": "01.08.2023",
+                    "start": "01.12.2024",
                     "end": "03.12.2024"
                 }
             ],
