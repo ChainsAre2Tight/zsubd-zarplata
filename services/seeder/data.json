@@ -2,10 +2,22 @@
     "payrates": [
         {
             "base_rate": 500.0,
-            "job_title": "WorkerXDD",
-            "comission": 0.05,
+            "job_title": "Worker",
+            "comission": 0.01,
             "salary_type": "hourly",
             "payment_period": "monthly"
+        }, {
+            "base_rate": 52000.0,
+            "job_title": "Уборщица",
+            "comission": 0.00,
+            "salary_type": "fixed",
+            "payment_period": "monthly"
+        }, {
+            "base_rate": 1400.0,
+            "job_title": "Менеджер",
+            "comission": 0.05,
+            "salary_type": "hourly",
+            "payment_period": "biweekly"
         }
     ],
     "employees": [
@@ -189,7 +201,7 @@
                     "amount": 123.56
                 }
             ],
-            "payrateId": 1,
+            "payrateId": 2,
             "workdays": [
                 {
                     "workday_date": "02-10-2024",
@@ -349,7 +361,7 @@
                     "amount": 851.98
                 }
             ],
-            "payrateId": 1,
+            "payrateId": 3,
             "workdays": [
                 {
                     "workday_date": "02-10-2024",
@@ -669,7 +681,7 @@
                     "amount": 1214.56
                 }
             ],
-            "payrateId": 1,
+            "payrateId": 2,
             "workdays": [
                 {
                     "workday_date": "02-10-2024",
@@ -829,7 +841,7 @@
                     "amount": 1118.56
                 }
             ],
-            "payrateId": 1,
+            "payrateId": 3,
             "workdays": [
                 {
                     "workday_date": "02-10-2024",
