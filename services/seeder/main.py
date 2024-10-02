@@ -1,17 +1,12 @@
 from dotenv import load_dotenv
+
 from connection import ConnectionFactory, Connection
-import json
-from jsonschema import validate
+from parser import load_and_validate
 
 if __name__ == "__main__":
     load_dotenv()
     factory = ConnectionFactory()
-    data: dict = None
-    with open('schema.json') as schema_file:
-        schema = json.load(schema_file)
-        with open('data.json') as data_file:
-            data = json.load(data_file)
-            validate(instance=data, schema=schema)
+    data: dict = load_and_validate()
     
     # insert payrates
     for payrate in data['payrates']:
