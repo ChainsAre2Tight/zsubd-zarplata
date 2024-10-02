@@ -7,11 +7,13 @@
                 "type": "object",
                 "properties": {
                     "base_rate": {"type": "number", "exclusiveMinimun": 0},
+                    "job_title": {"type": "string"},
                     "comission": {"type": "number", "enum": [0.00, 0.01, 0.03, 0.05]},
                     "salary_type": {"type": "string", "enum": ["hourly", "monthly"]},
                     "payment_period": {"type": "string", "enum": ["monthly", "biweekly"]}
                 },
-                "required": ["base_rate", "comission", "salary_type", "payment_period"]
+                "required": ["base_rate", "comission", "salary_type", "payment_period", "job_title"],
+                "additionalProperties": false
             }
         },
         "employees": {
@@ -43,7 +45,20 @@
                             }
                         }
                     },
-                    "payrateId": {"type": "integer"}
+                    "payrateId": {"type": "integer"},
+                    "workdays": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "workday_date": {"type": "string"},
+                                "entry_time": {"type": "string"},
+                                "exit_time": {"type": "string"}
+                            },
+                            "additionalProperties": false,
+                            "required": ["workday_date", "entry_time", "exit_time"]
+                        }
+                    }
 
                 },
                 "additionalProperties": false,
@@ -53,7 +68,8 @@
                     "receipt_address",
                     "vacations",
                     "orders",
-                    "payrateId"
+                    "payrateId",
+                    "workdays"
                 ]
             }
         }

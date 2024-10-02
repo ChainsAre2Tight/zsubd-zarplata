@@ -45,6 +45,7 @@ CREATE TABLE fulfilled_order (
 
 CREATE TABLE payrate (
     id SERIAL PRIMARY KEY,
+    job_title VARCHAR(32) NOT NULL,
     base_rate NUMERIC(8, 2) NOT NULL,
     commission NUMERIC(3,2) NOT NULL DEFAULT (0.00),
     salaty_type VARCHAR(16) NOT NULL,

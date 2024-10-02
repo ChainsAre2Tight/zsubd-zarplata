@@ -1,27 +1,22 @@
 from dotenv import load_dotenv
+
 from connection import ConnectionFactory, Connection
-import json
-from jsonschema import validate
+from parser import load_and_validate
 
 if __name__ == "__main__":
     load_dotenv()
     factory = ConnectionFactory()
-    data: dict = None
-    with open('schema.json') as schema_file:
-        schema = json.load(schema_file)
-        with open('data.json') as data_file:
-            data = json.load(data_file)
-            validate(instance=data, schema=schema)
+    data: dict = load_and_validate()
     
     # insert payrates
     for payrate in data['payrates']:
         with factory.create(Connection) as connection:
             cursor = connection.cursor
             cursor.execute(
-                'INSERT INTO payrate (base_rate, commission, salaty_type, payment_period) VALUES (%s, %s, %s, %s)',
-                (payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
+                'INSERT INTO payrate (job_title, base_rate, commission, salaty_type, payment_period) VALUES (%s, %s, %s, %s, %s)',
+                (payrate['job_title'], payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
             )
-            print('inserted payrate', payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
+            print('inserted payrate', payrate['job_title'], payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
 
     # for each employee
     for employee in data['employees']:
@@ -62,5 +57,10 @@ if __name__ == "__main__":
                 (employee['id'], employee['payrateId'])
             )
             print('inserted salary', employee['id'], employee['payrateId'])
+            for workday in employee['workdays']:
+                cursor.execute(
+                    'INSERT INTO workday (employee_id, workday_date, entry_time, exit_time) VALUES (%s, %s, %s, %s);',
+                    (employee['id'], workday['workday_date'], workday['entry_time'], workday['exit_time'])
+                )
 
     
