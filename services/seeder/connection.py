@@ -25,6 +25,7 @@ class Connection(BaseConnection):
         self.connection = psycopg2.connect(host=self._host, password=self._password, user=self._user, dbname=self._database, port=self._port, options="-c datestyle=ISO,DMY")
         print(f'Connected to database')
         self.cursor = self.connection.cursor()
+        self.connection.autocommit = True
         return self
     
     def __exit__(self, exception_type, exception_value, exception_traceback):
