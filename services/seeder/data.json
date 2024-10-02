@@ -28,6 +28,92 @@
                 }
             ],
             "payrateId": 1
+        }, {
+            "fio": "Ravellen Pazal Mironovich",
+            "payment_method": "card 5678 1234 9012 3456",
+            "receipt_address": "Arkhangelsk region, Moscow city, Lomonosov square, 37",
+            "vacations": [
+                {
+                    "start": "9.12.2024",
+                    "end": "13.12.2024"
+                }
+            ],
+            "orders": [
+                {
+                    "date": "04.09.2024",
+                    "amount": 123.56
+                }
+            ],
+            "payrateId": 1
+        }, {
+            "fio": "Vardanov Vardan Vardanyanovich",
+            "payment_method": "card 1234 9012 3456 5678",
+            "receipt_address": "Nizhny Novgorod region, Serebryanye Prudy city, Lomonosov boulevard, 21",
+            "vacations": [
+                {
+                    "start": "10.11.2025",
+                    "end": "11.11.2026"
+                }
+            ],
+            "orders": [
+                {
+                    "date": "03.09.2015",
+                    "amount": 851.98
+                }
+            ],
+            "payrateId": 1
+        }, {
+            "fio": "Starden Valrat Leonidovich",
+            "payment_method": "card 1234 3456 5678 9012 ",
+            "receipt_address": "Kurgan region, city Ramenskoye, st. 1905, 65",
+            "vacations": [
+                {
+                    "start": "02.10.2024",
+                    "end": "12.10.2024"
+                }
+            ],
+            "orders": [
+                {
+                    "date": "01.01.2001",
+                    "amount": 1.01
+                }
+            ],
+            "payrateId": 1
+        }, {
+            "fio": "Vodka Diepelia Matveevna",
+            "payment_method": "card 1111 1111 1111 1111",
+            "receipt_address": "Kirov region, city of Naro-Fominsk, Ladygina embankment, 64",
+            "vacations": [
+                {
+                    "start": "09.09.2023",
+                    "end": "15.12.2024"
+                }
+            ],
+            "orders": [
+                {
+                    "date": "05.09.2024",
+                    "amount": 1214.56
+                }
+            ],
+            "payrateId": 1
+        }, {
+            "fio": "Limshchel Rogyuzha Lvovna",
+            "payment_method": "card 2222 2222 2222 2222",
+            "receipt_address": "Smolensk region, Stupino city, Gagarin entrance, 02",
+            "vacations": [
+                {
+                    "start": "01.08.2023",
+                    "end": "03.12.2024"
+                }
+            ],
+            "orders": [
+                {
+                    "date": "08.09.2024",
+                    "amount": 1118.56
+                }
+            ],
+            "payrateId": 1
         }
+
     ]
 }
