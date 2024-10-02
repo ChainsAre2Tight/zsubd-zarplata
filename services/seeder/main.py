@@ -18,10 +18,10 @@ if __name__ == "__main__":
         with factory.create(Connection) as connection:
             cursor = connection.cursor
             cursor.execute(
-                'INSERT INTO payrate (base_rate, commission, salaty_type, payment_period) VALUES (%s, %s, %s, %s)',
-                (payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
+                'INSERT INTO payrate (job_title, base_rate, commission, salaty_type, payment_period) VALUES (%s, %s, %s, %s, %s)',
+                (payrate['job_title'], payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
             )
-            print('inserted payrate', payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
+            print('inserted payrate', payrate['job_title'], payrate['base_rate'], payrate['comission'], payrate['salary_type'], payrate['payment_period'])
 
     # for each employee
     for employee in data['employees']:
