@@ -2,6 +2,7 @@
     "payrates": [
         {
             "base_rate": 500.00,
+            "job_title": "WorkerXDD",
             "comission": 0.05,
             "salary_type": "hourly",
             "payment_period": "monthly"
