@@ -32,3 +32,20 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  backend:
+    build: ./services/backend
+    container_name: postgres-backend
+    restart: unless-stopped
+    volumes:
+      - ./backend:/usr/src/backend
+    env_file:
+      - ./services/backend/.env
+    ports:
+      - "5000:5000"
+    working_dir: /usr/src/backend
+    command: fastapi dev main.py --port 5000 --host 0.0.0.0
+    expose:
+      - 5000
+    depends_on:
+      db:
+        condition: service_healthy
