@@ -18,8 +18,8 @@ CREATE TABLE employee (
 CREATE TABLE employee_user (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username VARCHAR(32) NOT NULL UNIQUE,
-    pwd VARCHAR(32) NOT NULL,
-    employee_id UUID UNIQUE REFERENCES employee(id)
+    pwd VARCHAR(72) NOT NULL,
+    employee_id UUID UNIQUE REFERENCES employee(id) NOT NULL
 );
 
 CREATE TABLE workday (
