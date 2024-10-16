@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 
 from backend.dependencies import get_db_cursor
-from backend.auth import get_password_hash, create_access_token
+from backend.auth import get_password_hash, create_access_token, verify_password
 from backend.models.auth import Token
 
 router = APIRouter(prefix='/token')
@@ -16,21 +16,21 @@ async def login(
     ):
 
     def verify_user(cursor, username, hashed_pwd) -> tuple | None:
-        print('...', username, hashed_pwd)
         cursor.execute(
-            "SELECT employee_id FROM employee_user WHERE username = %s AND pwd = %s LIMIT 1",
-            (username, hashed_pwd)
+            "SELECT employee_id, pwd FROM employee_user WHERE username = %s LIMIT 1",
+            (username,)
         )
         result = cursor.fetchone()
-        return result
+        employee_id, hashed_pwd = result
+        return employee_id, hashed_pwd
 
-    employee_id = verify_user(
+    employee_id, hashed_pwd = verify_user(
         cursor=cursor,
         username=form_data.username,
         hashed_pwd=get_password_hash(form_data.password)
     )
-    print(employee_id)
-    if employee_id is None:
+
+    if employee_id is None or not verify_password(form_data.password, hashed_pwd):
         raise HTTPException(status_code=403, detail='Invalid username or password')
     
     access_token = create_access_token(
