@@ -8,7 +8,6 @@ app = FastAPI()
 
 origins = [
     "http://zarplata.zsubd",
-    "http://localhost:5000",
 ]
 
 app.add_middleware(
