@@ -65,3 +65,13 @@ services:
     expose:
       - 5010
     profiles: ['front-only']
+  nginx:
+    build: ./services/nginx
+    container_name: postgres-nginx
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    profiles: ['e2e']
+    depends_on:
+      - frontend
+      - backend
