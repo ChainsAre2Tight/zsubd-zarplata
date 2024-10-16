@@ -20,6 +20,9 @@ def _fake_decode_token(token: str) -> EmployeeUser:
         uuid=token,
     )
 
+def decode_token(token: str) -> EmployeeUser:
+    return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+
 def _get_current_user(token: _token) -> EmployeeUser:
     return _fake_decode_token(token=token)
 
