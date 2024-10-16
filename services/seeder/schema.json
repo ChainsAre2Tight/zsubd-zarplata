@@ -9,7 +9,7 @@
                     "base_rate": {"type": "number", "exclusiveMinimun": 0},
                     "job_title": {"type": "string"},
                     "comission": {"type": "number", "enum": [0.00, 0.01, 0.03, 0.05]},
-                    "salary_type": {"type": "string", "enum": ["hourly", "monthly"]},
+                    "salary_type": {"type": "string", "enum": ["hourly", "fixed"]},
                     "payment_period": {"type": "string", "enum": ["monthly", "biweekly"]}
                 },
                 "required": ["base_rate", "comission", "salary_type", "payment_period", "job_title"],
