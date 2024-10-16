@@ -2,10 +2,10 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class EmployeeToCreate(BaseModel):
+class EmployeeData(BaseModel):
     fio: str
-    payment_mathod: Optional[str] = None
-    receipt_address: Optional[str] = None
+    payment_mathod: str
+    receipt_address: str
 
 
 class EmployeeResponse(BaseModel):
