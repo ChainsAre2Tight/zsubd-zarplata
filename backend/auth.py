@@ -4,11 +4,12 @@ from passlib.context import CryptContext
 import jwt
 
 from typing import Annotated
+import os
 from datetime import datetime, timedelta, timezone
 
 from backend.models.employee import EmployeeUser
 
-SECRET_KEY = 'aboba'
+SECRET_KEY = os.getenv('TOKEN_SECRET_KEY') or 'secret'
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
