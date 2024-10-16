@@ -1,8 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 
 import backend.routers.employee as employee
 
 
 app = FastAPI()
 
-app.include_router(employee.router)
+base_router = APIRouter(prefix='/api/v1')
+base_router.include_router(employee.router)
+
+app.include_router(base_router)
