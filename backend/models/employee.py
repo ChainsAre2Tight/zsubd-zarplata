@@ -10,3 +10,6 @@ class EmployeeToCreate(BaseModel):
 
 class EmployeeResponse(BaseModel):
     employee_uuid: str
+
+class EmployeeUser(BaseModel):
+    uuid: str
