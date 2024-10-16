@@ -6,12 +6,20 @@ DROP TABLE IF EXISTS fulfilled_order;
 DROP TABLE IF EXISTS payrate CASCADE;
 DROP TABLE IF EXISTS salary CASCADE;
 DROP TABLE IF EXISTS receipt;
+DROP TABLE IF EXISTS employee_user;
 
 CREATE TABLE employee (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     fio VARCHAR(32) NOT NULL,
     payment_method text,
     receipt_address text
+);
+
+CREATE TABLE employee_user (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username VARCHAR(32) NOT NULL UNIQUE,
+    pwd VARCHAR(32) NOT NULL,
+    employee_id UUID UNIQUE REFERENCES employee(id)
 );
 
 CREATE TABLE workday (
