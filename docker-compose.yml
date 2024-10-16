@@ -64,7 +64,7 @@ services:
     command: fastapi dev main.py --port 5010 --host 0.0.0.0
     expose:
       - 5010
-    profiles: ['front-only']
+    profiles: ['front-only', 'e2e']
   nginx:
     build: ./services/nginx
     container_name: postgres-nginx
