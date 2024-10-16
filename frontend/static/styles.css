@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+  }
+
+.row {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    height: 80vh;
+} 
+
+.col-3 {
+    height: 80%;
+    width: 33.333%; /* Можно задать любую другую ширину блока */
+    background: grey;
+    margin: .5rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    
+  }
+h2 {
+    text-align: center;
+}
+.rectangle {
+    height: auto;
+    width: auto;
+    background-color: #555;
+  }
+
+.oval {
+    height: 100px;
+    width: 200px;
+    background-color: #555;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.triangle-right {
+	width: 0;
+	height: 0;
+	border-left: 0px solid transparent;
+	border-right: 200px solid transparent;
+	border-bottom: 50px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 50px solid #555;
+}
+
+.hexagon {
+	width: 100px;
+	height: 55px;
+	background: red;
+	position: relative;
+}
+.hexagon:before {
+	content: "";
+	position: absolute;
+	top: -25px; 
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 25px solid red;
+}
+.hexagon:after {
+	content: "";
+	position: absolute;
+	bottom: -25px; 
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 25px solid red;
+}
+
+.octagon {
+	width: 100px;
+	height: 100px;
+	background: red;
+	position: relative;
+}
+ 
+.octagon:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;    
+	border-bottom: 29px solid red;
+	border-left: 29px solid #eee;
+	border-right: 29px solid #eee;
+	width: 42px;
+	height: 0;
+}
+ .octagon:after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;    
+	border-top: 29px solid red;
+	border-left: 29px solid #eee;
+	border-right: 29px solid #eee;
+	width: 42px;
+	height: 0;
+}
+
+
+.triangle-container {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-bottom: 300px solid #3498db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.triangle {
+    position: absolute;
+    top: -250px; /* Adjust to align form in the triangle */
+    width: 220px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form input, .form textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.form button {
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: #2980b9;
+}
+  
