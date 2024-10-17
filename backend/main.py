@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import backend.routers.employee as employee
 import backend.routers.auth as auth
+import backend.routers.vacation as vacation
 import backend.routers.order as order
 
 
@@ -23,6 +24,7 @@ app.add_middleware(
 base_router = APIRouter(prefix='/api/v1')
 base_router.include_router(employee.router)
 base_router.include_router(auth.router)
+base_router.include_router(vacation.router)
 base_router.include_router(order.router)
 
 app.include_router(base_router)
