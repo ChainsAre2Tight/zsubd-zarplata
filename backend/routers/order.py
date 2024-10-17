@@ -18,7 +18,7 @@ def create_order(
     
     cursor.execute(
         'INSERT INTO fulfilled_order (employee_id, amount) VALUES (%s, %s) RETURNING id',
-        (employee_uuid, order.amount)
+        (employee_uuid.uuid, order.amount)
     )
     result = cursor.fetchone()
     return {'uuid': result[0]}
