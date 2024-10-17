@@ -1,23 +1,24 @@
 from fastapi import APIRouter, HTTPException
 
-from backend.models.order import Order
+from backend.models.order import OrderIn, OrderOut
 from backend.auth import get_current_user
 from backend.dependencies import get_db_cursor
 
 
 router = APIRouter('/order')
 
-@router.post('/', status_code=201)
+@router.post('/', status_code=201, response_model=OrderOut)
 def create_order(
         employee_uuid: get_current_user,
         cursor: get_db_cursor,
-        order: Order
+        order: OrderIn
     ):
     if order.amount <= 0:
         raise HTTPException(status_code=400, detail='Order amount is invalid')
     
     cursor.execute(
-        'INSERT INTO fulfilled_order (employee_id, amount) VALUES (%s, %s)',
+        'INSERT INTO fulfilled_order (employee_id, amount) VALUES (%s, %s) RETURNING id',
         (employee_uuid, order.amount)
     )
-    return {}
+    result = cursor.fetchone()
+    return {'uuid': result[0]}
