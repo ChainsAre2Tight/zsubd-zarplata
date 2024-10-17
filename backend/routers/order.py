@@ -5,7 +5,7 @@ from backend.auth import get_current_user
 from backend.dependencies import get_db_cursor
 
 
-router = APIRouter('/order')
+router = APIRouter(prefix='/order')
 
 @router.post('/', status_code=201, response_model=OrderOut)
 def create_order(
