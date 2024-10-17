@@ -19,3 +19,4 @@ class VacationIn(BaseModel):
     def validate_dates(cls, v: str):
         if not validate_date_format(v):
             raise ValueError('Date is not in ISO8601 format')
+        return v
