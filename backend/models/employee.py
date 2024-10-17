@@ -4,7 +4,7 @@ from typing import Optional
 
 class EmployeeData(BaseModel):
     fio: str
-    payment_mathod: str
+    payment_method: str
     receipt_address: str
 
 

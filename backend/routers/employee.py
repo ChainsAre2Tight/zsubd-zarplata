@@ -31,6 +31,6 @@ def read_current_employee(
     assert data is not None, 'got empty employee from db'
     return {
         'fio': data[0],
-        'payment_mathod': data[1],
+        'payment_method': data[1],
         'receipt_address': data[2],
     }
