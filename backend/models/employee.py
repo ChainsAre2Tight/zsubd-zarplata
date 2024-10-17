@@ -13,3 +13,7 @@ class EmployeeResponse(BaseModel):
 
 class EmployeeUser(BaseModel):
     uuid: str
+
+class EmployeeToPatch(BaseModel):
+    payment_mathod: str
+    receipt_address: str
