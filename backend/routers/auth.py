@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from typing import Annotated
 
-from backend.dependencies import get_db_cursor
+from backend.dependencies import get_db_connection
 from backend.auth import get_password_hash, create_access_token, verify_password
 from backend.models.auth import Token
 
@@ -11,7 +11,7 @@ router = APIRouter(prefix='/token')
 
 @router.post('', response_model=Token)
 async def login(
-        cursor: get_db_cursor,
+        connection: get_db_connection,
         form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
     ):
 
@@ -25,7 +25,7 @@ async def login(
         return employee_id, hashed_pwd
 
     employee_id, hashed_pwd = verify_user(
-        cursor=cursor,
+        cursor=connection.cursor(),
         username=form_data.username,
         hashed_pwd=get_password_hash(form_data.password)
     )
