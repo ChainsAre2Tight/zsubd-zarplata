@@ -31,6 +31,19 @@ def read_current_employee(
     assert data is not None, 'got empty employee from db'
     return {
         'fio': data[0],
-        'payment_mathod': data[1],
+        'payment_method': data[1],
         'receipt_address': data[2],
     }
+
+@router.patch('/me', status_code=204)
+def patch_current_user(
+        current_user: get_current_user,
+        connection: get_db_connection,
+        data: models.EmployeeToPatch
+    ):
+    cursor = connection.cursor()
+    cursor.execute(
+        'UPDATE employee SET payment_method = %s, receipt_address = %s WHERE id = %s',
+        (data.payment_mathod, data.receipt_address, current_user.uuid)
+    )
+    return
