@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
     </head>
     <body>
-        <div class="row">
+        <div class="row" id="input-window">
             <div class="col-3" id="order">
                     <h2 class="rectangle">Добавление заказа</h2>
                 <form class="oval" action="" method="post">
@@ -57,7 +57,12 @@
                 <button class="rectangle" onclick="submit">Отпустить</button>
             </div>
         </div>
-        
+        <div class="output-window">
+            <div id="message" class="js-success">
+                    blav
+                <!-- Сюда сообщение -->
+            </div>
+        </div>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->

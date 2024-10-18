@@ -13,7 +13,7 @@
 
 .col-3 {
     height: 80%;
-    width: 33.333%; /* Можно задать любую другую ширину блока */
+    width: 33.333%;
     background: grey;
     margin: .5rem;
     display: flex;
@@ -25,6 +25,29 @@
 h2 {
     text-align: center;
 }
+
+.output-window {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    align-items: center;
+    justify-content: center;
+}
+#message {
+    height: 100%;
+    width:100%;
+    align-content: center;
+    text-align: center;
+    color: whitesmoke;
+}
+.js-success {
+    background-color: blue;
+}
+
+.js-failure {
+    background-color: red;
+}
+
 .rectangle {
     height: auto;
     width: auto;
