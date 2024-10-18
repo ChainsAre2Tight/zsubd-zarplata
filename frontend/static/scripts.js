@@ -15,6 +15,21 @@ async function checkToken() {
     if (TOKEN === null) {
         getLogin()
     }
+
+    // if token expiry gets implemented, check time
 }
 
 window.addEventListener('load', checkToken)
+
+async function sendRequest(request, callback) {
+    await checkToken()
+
+    response = await fetch(...request)
+
+    if (response.status === 401 || response.status === 403) {
+        alert('Token expired')
+        getLogin()
+    } else {
+        await callback(response)
+    }
+}
