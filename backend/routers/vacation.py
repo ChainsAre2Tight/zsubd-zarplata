@@ -76,4 +76,6 @@ def create_vacation(
     connection.commit()
     return {
         'vacation_id': id,
+        'remaining_duration': remaining_duration,
+        'max_duration': MAXIMUM_VACATION_DURATION,
     }
