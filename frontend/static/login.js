@@ -1,9 +1,13 @@
 function showErrorMessage(details) {
-    alert(`failure ${details}`)
+    const message = document.getElementById('message')
+    message.innerText = `failure ${details}`
+    message.className = 'js-failure'
 }
 
 function showSuccessMessage(details) {
-    alert(`success ${details}`)
+    const message = document.getElementById('message')
+    message.innerText = `success ${details}`
+    message.className = 'js-success'
 }
 
 async function sendLoginData() {
