@@ -114,7 +114,40 @@ function handleEmployeePatchClick (event) {
     sendUserData()
 }
 
+async function sendOrderData() {
+    const amount = document.getElementById('order-volume').value
+
+    const request = async () => fetch('/api/v1/order/', {
+        method: 'POST',
+        headers: {
+            'Authorization': getAuthHeader(),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({amount: amount})
+    })
+
+    const callback = async (response) => {
+        const json = await response.json()
+
+        const success = (response.status === 201)
+        const message = success ? `Заказ внесен, его id: ${json.uuid}` : json.detail
+
+        displayMessage(
+            message,
+            success,
+        )
+    }
+
+    await sendRequest(request, callback)
+}
+
 window.addEventListener('load', async () => await getUserData())
 document.querySelector("#self-parameters button").addEventListener(
     'click', (e) => handleEmployeePatchClick()
+)
+document.querySelector("#order button").addEventListener(
+    'click', async (e) => {
+        console.log('Sending order data...'),
+        await sendOrderData()
+    }
 )
