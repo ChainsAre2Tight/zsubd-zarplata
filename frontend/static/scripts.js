@@ -56,3 +56,12 @@ async function sendUserData() {
     // TODO call request wrapper
 }
 
+function handleEmployeePatchClick (event) {
+    console.log('Sending employee data...')
+    sendUserData()
+}
+
+window.addEventListener('load', async () => await getUserData())
+document.querySelector("#self-parameters button").addEventListener(
+    'click', (e) => handleEmployeePatchClick()
+)
