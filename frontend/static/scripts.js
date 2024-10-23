@@ -130,7 +130,7 @@ async function sendOrderData() {
         const json = await response.json()
 
         const success = (response.status === 201)
-        const message = success ? `Заказ внесен, его id: ${json.uuid}` : json.detail
+        const message = success ? `Заказ внесен, его id: ${json.uuid}` : JSON.stringify(json.detail)
 
         displayMessage(
             message,
