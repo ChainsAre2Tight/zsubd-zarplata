@@ -1,12 +1,12 @@
 function showErrorMessage(details) {
     const message = document.getElementById('message')
-    message.innerText = `failure ${details}`
+    message.innerText = details
     message.className = 'js-failure'
 }
 
 function showSuccessMessage(details) {
     const message = document.getElementById('message')
-    message.innerText = `success ${details}`
+    message.innerText = details
     message.className = 'js-success'
 }
 
@@ -15,6 +15,7 @@ function transferToken(token) {
 }
 
 async function sendLoginData() {
+    console.log('sending data')
     username = document.getElementById('username-input').value
     password = document.getElementById('password-input').value
 
@@ -33,20 +34,27 @@ async function sendLoginData() {
             body: data
         }
     )
+    const json = await response.json()
 
     if (response.status === 200) {
-        json = await response.json()
-        showSuccessMessage(json.access_token)
+        showSuccessMessage('Login successfull, window will soon close')
         transferToken(json.access_token)
     } else (
-        showErrorMessage(response.status)
+        showErrorMessage(json.detail)
     )
 }
 
 function handleClick(event) {
-    console.log('sending data')
     event.preventDefault()
     sendLoginData()
 }
 
+function handlePress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        sendLoginData()
+    }
+}
+
 document.getElementById('send-button').addEventListener('click', (e) => handleClick(e))
+window.addEventListener('keypress', (e) => handlePress(e))

@@ -10,6 +10,7 @@ async function getLogin() {
     const params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=300,height=200,left=100,top=100`;
     popup = window.open('/login', 'popup', params)
+    popup.focus()
 
     var promiseResolve
 
@@ -130,7 +131,7 @@ async function sendOrderData() {
         const json = await response.json()
 
         const success = (response.status === 201)
-        const message = success ? `Заказ внесен, его id: ${json.uuid}` : json.detail
+        const message = success ? `Заказ внесен, его id: ${json.uuid}` : JSON.stringify(json.detail)
 
         displayMessage(
             message,
