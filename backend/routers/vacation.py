@@ -4,12 +4,16 @@ from datetime import datetime
 
 from backend.auth import get_current_user
 from backend.dependencies import get_db_connection
-from backend.models.vacation import VacationIn
+from backend.models.vacation import VacationIn, VacationOut
 
 router = APIRouter(prefix='/vacation')
 MAXIMUM_VACATION_DURATION = 35
 
-@router.post('/', status_code=status.HTTP_201_CREATED)
+@router.post(
+    '/',
+    status_code=status.HTTP_201_CREATED,
+    response_model=VacationOut,
+)
 def create_vacation(
         employee: get_current_user,
         connection: get_db_connection,
@@ -70,4 +74,6 @@ def create_vacation(
     id = cursor.fetchone()[0]
 
     connection.commit()
-    return {'vacation_id': id}
+    return {
+        'vacation_id': id,
+    }
