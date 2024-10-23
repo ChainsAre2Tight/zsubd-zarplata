@@ -58,8 +58,8 @@ const getAuthHeader = () => {
 
 function showUserData(user) {
     console.log(`Вы вошли как ${user.fio}`)
-    document.getElementById('pay-method').innerText = user.payment_method
-    document.getElementById("pay-address").innerText = user.receipt_address
+    document.getElementById('pay-method').value = user.payment_method
+    document.getElementById("pay-address").value = user.receipt_address
 }
 
 function displayMessage(message, success) {
@@ -83,11 +83,11 @@ async function getUserData() {
 }
 
 async function sendUserData() {
-    paymentMethod = document.getElementById('pay-method').innerText
-    receiptAddress = document.getElementById("pay-address").innerText
+    paymentMethod = document.getElementById('pay-method').value
+    receiptAddress = document.getElementById("pay-address").value
 
     const request = async () => await fetch('/api/v1/employee/me', {
-        method: 'patch',
+        method: 'PATCH',
         headers: {'Authorization': getAuthHeader()},
         body: JSON.stringify({
             payment_method: paymentMethod,
