@@ -15,12 +15,16 @@ async def login(
         form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
     ):
 
+    invalid_credentials = HTTPException(status_code=403, detail='Invalid username or password')
+
     def verify_user(cursor, username, hashed_pwd) -> tuple | None:
         cursor.execute(
             "SELECT employee_id, pwd FROM employee_user WHERE username = %s LIMIT 1",
             (username,)
         )
         result = cursor.fetchone()
+        if result is None:
+            raise invalid_credentials
         employee_id, hashed_pwd = result
         return employee_id, hashed_pwd
 
@@ -31,7 +35,7 @@ async def login(
     )
 
     if employee_id is None or not verify_password(form_data.password, hashed_pwd):
-        raise HTTPException(status_code=403, detail='Invalid username or password')
+        raise invalid_credentials
     
     access_token = create_access_token(
         data={'employeeUUID': employee_id, 'scope': 'employee'}
