@@ -13,11 +13,11 @@
         <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
     </head>
     <body>
-        <div class="row">
+        <div class="row" id="input-window">
             <div class="col-3" id="order">
                     <h2 class="rectangle">Добавление заказа</h2>
                 <form class="oval" action="" method="post">
-                        <input type="int" name="order-volume" value="Введите объем заказа">
+                        <input type="int" name="order-volume" placeholder="Введите объем заказа">
                 </form>
                 <button class="rectangle" onclick="submit">Добавить</button>
             </div>
@@ -28,11 +28,11 @@
                         <tr>
                             
                             <td><label for="pay-method">Метод оплаты</label></td>
-                            <td><input type="text" name="pay-method" value="Введите метод оплаты"><!--Имеет смысл брать эти данные из базы--></td> 
+                            <td><input type="text" name="pay-method" placeholder="Введите метод оплаты"></td> 
                         </tr>
                         <tr>
                             <td><label for="pay-address">Адрес чека</label></td>
-                            <td><input type="text" name="pay-address" value="Куда отправлять чек"><!--Имеет смысл брать эти данные из базы--></td>
+                            <td><input type="text" name="pay-address" placeholder="Куда отправлять чек"></td>
                         </tr>
                     </table>
                 </form>
@@ -44,11 +44,11 @@
                     <table>
                         <tr class="">
                             <td><label for="start-day">Начало отпуска</label></td>
-                            <td><input type="text" name="start-day" value="Дата начала"></td>
+                            <td><input type="text" name="start-day" placeholder="Дата начала"></td>
                         </tr>
                         <tr>
                             <td><label for="finish-day">Конец отпуска</label></td>
-                            <td><input type="text" name="finish-day" value="Дата конца"></td>
+                            <td><input type="text" name="finish-day" placeholder="Дата конца"></td>
                         </tr>
                     </table>
                     
@@ -57,7 +57,12 @@
                 <button class="rectangle" onclick="submit">Отпустить</button>
             </div>
         </div>
-        
+        <div class="output-window">
+            <div id="message" class="js-success">
+                    blav
+                <!-- Сюда сообщение -->
+            </div>
+        </div>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
