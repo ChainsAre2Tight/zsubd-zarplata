@@ -196,4 +196,17 @@ h2 {
 .form button:hover {
     background-color: #2980b9;
 }
+
+#progress-bar {
+    width: 100%;
+    max-width: 400px;
+    height: 10px;
+    background-color: green;
+}
+
+#filled-progress-bar {
+    width: 5%;
+    height: 100%;
+    background-color: brown;
+}
   
