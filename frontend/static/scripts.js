@@ -83,16 +83,17 @@ async function getUserData() {
 }
 
 async function sendUserData() {
-    paymentMethod = document.getElementById('pay-method').value
-    receiptAddress = document.getElementById("pay-address").value
+    const paymentMethod = document.getElementById('pay-method').value
+    const receiptAddress = document.getElementById("pay-address").value
+    const obj = {payment_method: paymentMethod, receipt_address: receiptAddress}
 
     const request = async () => await fetch('/api/v1/employee/me', {
         method: 'PATCH',
-        headers: {'Authorization': getAuthHeader()},
-        body: JSON.stringify({
-            payment_method: paymentMethod,
-            receipt_address: receiptAddress,
-        })
+        headers: {
+            'Authorization': getAuthHeader(),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj)
     })
 
     const callback = async (response) => {
