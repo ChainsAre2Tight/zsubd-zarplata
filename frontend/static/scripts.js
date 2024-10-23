@@ -10,7 +10,7 @@ width=300,height=200,left=100,top=100`;
 function updateToken(newToken) {
     TOKEN = newToken;
     console.log('Got new access token')
-    popup.close() // close login window
+    setTimeout(() => popup.close(), 500) // close login window
 }
 
 async function checkToken() {
