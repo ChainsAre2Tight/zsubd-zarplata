@@ -59,7 +59,8 @@ def create_vacation(
     current_duration = sum([(vac[1] - vac[0]).days for vac in data])
 
     proposed_duration = (end_date - begin_date).days
-    if current_duration + proposed_duration > MAXIMUM_VACATION_DURATION:
+    remaining_duration = MAXIMUM_VACATION_DURATION - (current_duration + proposed_duration)
+    if remaining_duration < 0:
         raise HTTPException(status_code=400, detail='Reached maximum vacation duration this year duration')
     
     cursor.execute(
