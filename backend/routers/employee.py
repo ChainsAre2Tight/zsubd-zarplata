@@ -46,4 +46,5 @@ def patch_current_user(
         'UPDATE employee SET payment_method = %s, receipt_address = %s WHERE id = %s',
         (data.payment_method, data.receipt_address, current_user.uuid)
     )
+    connection.commit()
     return
