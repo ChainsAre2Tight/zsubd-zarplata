@@ -1,27 +1,43 @@
 let TOKEN = null;
 let popup = null;
+let update = (token) => {}
 
-function getLogin() {
+function updateToken(token) {
+    update(token)
+}
+
+async function getLogin() {
     const params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=300,height=200,left=100,top=100`;
     popup = window.open('/login', 'popup', params)
-}
 
-function updateToken(newToken) {
-    TOKEN = newToken;
-    console.log('Got new access token')
-    setTimeout(() => popup.close(), 500) // close login window
+    var promiseResolve
+
+    update = (newToken) => {
+        TOKEN = newToken;
+        console.log('Got new access token')
+        setTimeout(() => popup.close(), 500) // close login window
+        promiseResolve()
+        update = (token) => {}
+    }
+
+    let promise = new Promise((resolve, reject) => {
+        promiseResolve = resolve
+    })
+    
+    await promise
+    console.log('got login')
 }
 
 async function checkToken() {
     if (TOKEN === null) {
-        getLogin()
+        await getLogin()
     }
 
     // if token expiry gets implemented, check time
 }
 
-window.addEventListener('load', checkToken)
+// window.addEventListener('load', checkToken)
 
 async function sendRequest(request, callback) {
     await checkToken()
@@ -63,7 +79,7 @@ async function getUserData() {
         showUserData(json)
     }
 
-    // TODO call request wrapper
+    await sendRequest(request, callback)
 }
 
 async function sendUserData() {
@@ -89,7 +105,7 @@ async function sendUserData() {
         )
     }
 
-    // TODO call request wrapper
+    await sendRequest(request, callback)
 }
 
 function handleEmployeePatchClick (event) {
