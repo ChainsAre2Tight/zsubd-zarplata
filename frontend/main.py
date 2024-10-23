@@ -27,4 +27,11 @@ def render_index(request: Request):
         name='index.html',
     )
 
+@app.get('/login')
+def render_index(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name='login-window.html',
+    )
+
 app.mount('/static', StaticFiles(directory='static'), name='static')

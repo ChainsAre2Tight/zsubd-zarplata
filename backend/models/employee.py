@@ -15,5 +15,5 @@ class EmployeeUser(BaseModel):
     uuid: str
 
 class EmployeeToPatch(BaseModel):
-    payment_mathod: str
+    payment_method: str
     receipt_address: str
