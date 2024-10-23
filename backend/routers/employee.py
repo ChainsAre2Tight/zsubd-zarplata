@@ -44,6 +44,6 @@ def patch_current_user(
     cursor = connection.cursor()
     cursor.execute(
         'UPDATE employee SET payment_method = %s, receipt_address = %s WHERE id = %s',
-        (data.payment_mathod, data.receipt_address, current_user.uuid)
+        (data.payment_method, data.receipt_address, current_user.uuid)
     )
     return
