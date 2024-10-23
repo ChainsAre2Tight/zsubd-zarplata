@@ -10,6 +10,10 @@ function showSuccessMessage(details) {
     message.className = 'js-success'
 }
 
+function transferToken(token) {
+    window.opener.updateToken(token)
+}
+
 async function sendLoginData() {
     username = document.getElementById('username-input').value
     password = document.getElementById('password-input').value
@@ -33,6 +37,7 @@ async function sendLoginData() {
     if (response.status === 200) {
         json = await response.json()
         showSuccessMessage(json.access_token)
+        transferToken(json.access_token)
     } else (
         showErrorMessage(response.status)
     )
