@@ -27,12 +27,12 @@ async function sendLoginData() {
     } else (
         showErrorMessage(response.status)
     )
-
-
 }
 
 function handleClick(event) {
+    console.log('sending data')
     event.preventDefault()
+    sendLoginData()
 }
 
 document.getElementById('send-button').addEventListener('click', (e) => handleClick(e))
