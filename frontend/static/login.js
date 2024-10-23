@@ -7,8 +7,8 @@ function showSuccessMessage(details) {
 }
 
 async function sendLoginData() {
-    username = window.getElementById('username-input').value
-    password = window.getElementById('password-input').value
+    username = document.getElementById('username-input').value
+    password = document.getElementById('password-input').value
 
     const data = new FormData()
     data.append('username', username)
