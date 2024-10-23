@@ -141,6 +141,37 @@ async function sendOrderData() {
     await sendRequest(request, callback)
 }
 
+async function sendVacationData() {
+    const start = document.getElementById('start-day').value
+    const end = document.getElementById('finish-day').value
+
+    const request = async () => fetch('/api/v1/vacation/', {
+        method: 'POST',
+        headers: {
+            'Authorization': getAuthHeader(),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            begin_date: start,
+            end_date: end,
+        })
+    })
+
+    const callback = async (response) => {
+        const json = await response.json()
+
+        const success = (response.status === 201)
+        const message = success ? `Отпуск зарезервирован: ${json.vacation_id}` : JSON.stringify(json.detail)
+
+        displayMessage(
+            message,
+            success,
+        )
+    }
+
+    await sendRequest(request, callback)
+}
+
 window.addEventListener('load', async () => await getUserData())
 document.querySelector("#self-parameters button").addEventListener(
     'click', (e) => handleEmployeePatchClick()
@@ -149,5 +180,11 @@ document.querySelector("#order button").addEventListener(
     'click', async (e) => {
         console.log('Sending order data...'),
         await sendOrderData()
+    }
+)
+document.querySelector("#vacation button").addEventListener(
+    'click', async (e) => {
+        console.log('Sending vacation data...'),
+        await sendVacationData()
     }
 )
