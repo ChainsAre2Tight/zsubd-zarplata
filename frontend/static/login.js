@@ -1,12 +1,12 @@
 function showErrorMessage(details) {
     const message = document.getElementById('message')
-    message.innerText = `failure ${details}`
+    message.innerText = details
     message.className = 'js-failure'
 }
 
 function showSuccessMessage(details) {
     const message = document.getElementById('message')
-    message.innerText = `success ${details}`
+    message.innerText = details
     message.className = 'js-success'
 }
 
@@ -34,13 +34,13 @@ async function sendLoginData() {
             body: data
         }
     )
+    const json = await response.json()
 
     if (response.status === 200) {
-        json = await response.json()
-        showSuccessMessage(json.access_token)
+        showSuccessMessage('Login successfull, window will soon close')
         transferToken(json.access_token)
     } else (
-        showErrorMessage(response.status)
+        showErrorMessage(json.detail)
     )
 }
 
