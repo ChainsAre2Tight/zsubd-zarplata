@@ -10,6 +10,7 @@ async function getLogin() {
     const params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=300,height=200,left=100,top=100`;
     popup = window.open('/login', 'popup', params)
+    popup.focus()
 
     var promiseResolve
 
