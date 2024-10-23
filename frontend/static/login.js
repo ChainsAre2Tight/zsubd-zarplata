@@ -10,6 +10,11 @@ async function sendLoginData() {
     username = document.getElementById('username-input').value
     password = document.getElementById('password-input').value
 
+    if (username == '' || password == '') {
+        showErrorMessage('Empty data')
+        return
+    }
+
     const data = new FormData()
     data.append('username', username)
     data.append('password', password)
