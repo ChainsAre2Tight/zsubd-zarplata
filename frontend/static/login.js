@@ -15,6 +15,7 @@ function transferToken(token) {
 }
 
 async function sendLoginData() {
+    console.log('sending data')
     username = document.getElementById('username-input').value
     password = document.getElementById('password-input').value
 
@@ -44,9 +45,16 @@ async function sendLoginData() {
 }
 
 function handleClick(event) {
-    console.log('sending data')
     event.preventDefault()
     sendLoginData()
 }
 
+function handlePress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        sendLoginData()
+    }
+}
+
 document.getElementById('send-button').addEventListener('click', (e) => handleClick(e))
+window.addEventListener('keypress', (e) => handlePress(e))
