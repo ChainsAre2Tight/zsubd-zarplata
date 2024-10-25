@@ -217,10 +217,47 @@ async function getVacationData() {
     await sendRequest(request, callback)
 }
 
+async function displayOrders(orders) {
+    console.log(orders); return; // TODO remove
+
+    const display = document.getElementById('order-table')
+    for (const order of orders) {
+        const row = document.createElement('tr')
+        const uuid = document.createElement('td')
+        const amount = document.createElement('td')
+        const date = document.createElement('td')
+
+        uuid.appendChild(document.createTextNode(order.uuid))
+        amount.appendChild(document.createTextNode(order.amount))
+        date.appendChild(document.createTextNode(order.date))
+
+        row.appendChild(uuid)
+        row.appendChild(date)
+        row.appendChild(amount)
+        display.appendChild(row)
+    }
+}
+
+async function getOrdersData() {
+    const request = async () => await fetch('/api/v1/order/', {
+        method: 'GET',
+        headers: {'Authorization': getAuthHeader()},
+    })
+
+    const callback = async (response) => {
+        json = await response.json()
+
+        displayOrders(json)
+    }
+
+    await sendRequest(request, callback)
+}
+
 async function loadUserData() {
     await checkToken();
     getUserData();
     getVacationData();
+    getOrdersData();
 }
 
 window.addEventListener('load', async () => await loadUserData())
