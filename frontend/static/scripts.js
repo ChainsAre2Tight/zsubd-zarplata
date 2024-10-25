@@ -184,7 +184,12 @@ async function sendVacationData() {
     await sendRequest(request, callback)
 }
 
-window.addEventListener('load', async () => await getUserData())
+async function loadUserData() {
+    await checkToken();
+    getUserData();
+}
+
+window.addEventListener('load', async () => await loadUserData())
 document.querySelector("#self-parameters button").addEventListener(
     'click', (e) => handleEmployeePatchClick()
 )
