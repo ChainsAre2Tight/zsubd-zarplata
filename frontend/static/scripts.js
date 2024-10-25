@@ -184,9 +184,43 @@ async function sendVacationData() {
     await sendRequest(request, callback)
 }
 
+function displayVacations(vacations) {
+    console.log(vacations); return; // TODO remove
+
+    const display = document.getElementById('vacation-table')
+    for (const vacation of vacations) {
+        const row = document.createElement('tr')
+        const begin = document.createElement('td')
+        const end = document.createElement('td')
+
+        begin.appendChild(document.createTextNode(vacation.begin_date))
+        end.appendChild(document.createTextNode(vacation.end_date))
+
+        row.appendChild(begin)
+        row.appendChild(end)
+        display.appendChild(row)
+    }
+} 
+
+async function getVacationData() {
+    const request = async () => await fetch('/api/v1/vacation/', {
+        method: 'GET',
+        headers: {'Authorization': getAuthHeader()},
+    })
+
+    const callback = async (response) => {
+        json = await response.json()
+
+        displayVacations(json)
+    }
+
+    await sendRequest(request, callback)
+}
+
 async function loadUserData() {
     await checkToken();
     getUserData();
+    getVacationData();
 }
 
 window.addEventListener('load', async () => await loadUserData())
