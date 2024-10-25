@@ -5,3 +5,11 @@ class OrderIn(BaseModel):
 
 class OrderOut(BaseModel):
     uuid: str
+
+class OrderData(BaseModel):
+    uuid: str
+    amount: float
+    date: str
+
+class OrderList(BaseModel):
+    orders: list[OrderData]
