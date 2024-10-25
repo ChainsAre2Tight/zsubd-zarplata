@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from backend.auth import get_current_user
 from backend.dependencies import get_db_connection
@@ -40,23 +40,29 @@ def create_vacation(
 
     # validate vacation is at leats 60 days into future
     today = datetime.date(datetime.now())
+    next_year = today + timedelta(days=365)
     if (begin_date - today).days < 60:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail='Vacation should start at least 60 days from now'
         )
     
-    # validate vacation is for this year
-    if begin_date.year != today.year:
-        raise HTTPException(
+    # validate vacation is for this year or next
+    match begin_date.year:
+        case today.year:
+            selected_year = today
+        case next_year.year:
+            selected_year = next_year
+        case _:
+            raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail='Vacations can only be reserved for current year'
+            detail='Vacations can only be reserved for current or next year'
         )
 
     cursor.execute(
         """SELECT begin_date, end_date FROM vacation WHERE employee_id = %s
-        AND DATE_PART('year', CURRENT_DATE::date) = DATE_PART('year', begin_date::date)""",
-        (employee.uuid,)
+        AND DATE_PART('year', %s::date) = DATE_PART('year', begin_date::date)""",
+        (employee.uuid, selected_year)
     )
 
     data = cursor.fetchall()
