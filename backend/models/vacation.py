@@ -20,3 +20,8 @@ class VacationIn(BaseModel):
         if not validate_date_format(v):
             raise ValueError('Date is not in ISO8601 format')
         return v
+
+class VacationOut(BaseModel):
+    vacation_id: int
+    remaining_duration: int = None
+    max_duration: int = None

@@ -6,6 +6,12 @@ function updateToken(token) {
     update(token)
 }
 
+function updateProgressBar(max, remaining) {
+    bar = document.getElementById('filled-progress-bar')
+    const width = (1 - remaining / max) * 100 + '%'
+    bar.style.width = width
+}
+
 async function getLogin() {
     const params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=300,height=200,left=100,top=100`;
@@ -167,6 +173,11 @@ async function sendVacationData() {
         displayMessage(
             message,
             success,
+        )
+
+        updateProgressBar(
+            json.max_duration,
+            json.remaining_duration,
         )
     }
 
