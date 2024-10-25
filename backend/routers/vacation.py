@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 from backend.auth import get_current_user
 from backend.dependencies import get_db_connection
-from backend.models.vacation import VacationIn, VacationOut
+from backend.models.vacation import VacationIn, VacationOut, Vacations
 
 router = APIRouter(prefix='/vacation')
 MAXIMUM_VACATION_DURATION = 35
@@ -85,3 +85,34 @@ def create_vacation(
         'remaining_duration': remaining_duration,
         'max_duration': MAXIMUM_VACATION_DURATION,
     }
+
+
+@router.get(
+    '/',
+    response_model=Vacations
+)
+def read_vacations(
+        employee: get_current_user,
+        connection: get_db_connection,
+    ) -> Vacations:
+
+    cursor = connection.cursor()
+    cursor.execute(
+        '''
+        SELECT begin_date, end_date 
+        FROM vacation
+        WHERE employee_id = %s
+            AND begin_date > CURRENT_DATE
+        ORDER BY begin_date
+        ''',
+        (employee.uuid,)
+    )
+    data: list[tuple[datetime, datetime]] = cursor.fetchall()
+    date_format = '%Y-%m-%d'
+    results = [
+        VacationIn(
+            begin_date=item[0].strftime(date_format),
+            end_date=item[1].strftime(date_format)
+        ) for item in data
+    ]
+    return Vacations(vacations=results)

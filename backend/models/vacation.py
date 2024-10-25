@@ -25,3 +25,6 @@ class VacationOut(BaseModel):
     vacation_id: int
     remaining_duration: int = None
     max_duration: int = None
+
+class Vacations(BaseModel):
+    vacations: list[VacationIn]
