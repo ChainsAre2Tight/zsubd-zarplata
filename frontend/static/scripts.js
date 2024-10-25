@@ -143,6 +143,8 @@ async function sendOrderData() {
             message,
             success,
         )
+
+        setTimeout(() => getOrdersData(), 1000)
     }
 
     await sendRequest(request, callback)
@@ -179,6 +181,8 @@ async function sendVacationData() {
             json.max_duration,
             json.remaining_duration,
         )
+
+        setTimeout(() => getVacationData(), 1000)
     }
 
     await sendRequest(request, callback)
