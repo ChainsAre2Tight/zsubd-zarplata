@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from backend.auth import get_current_user
 from backend.dependencies import get_db_connection
@@ -65,7 +65,7 @@ def create_vacation(
         (employee.uuid, selected_year)
     )
 
-    data = cursor.fetchall()
+    data: list[tuple[date, date]] = cursor.fetchall()
     current_duration = sum([(vac[1] - vac[0]).days for vac in data])
 
     proposed_duration = (end_date - begin_date).days
@@ -73,6 +73,25 @@ def create_vacation(
     if remaining_duration < 0:
         raise HTTPException(status_code=400, detail='Reached maximum vacation duration this year duration')
     
+    # validate non-overlapping nature of vacations
+    # what we have is an list of dates in an ascending order
+    # traverse it, if we get start_date, increment state by 1
+    # if we get end_date, decrement it
+    # if at some point state is not 0 or 1, we have an overlap
+    array = [(1, begin_date.toordinal()), (-1, end_date.toordinal())]
+    for start, end in data:
+        array.append((1, start.toordinal()))
+        array.append((-1, end.toordinal()))
+    array.sort(key=lambda x: x[1])
+    state = 0
+    for i in array:
+        state += i[0]
+        if state < 0 or state > 1:
+            raise HTTPException(
+                status_code=400,
+                detail='Your vacation overlaps with another one of yours'
+            )
+
     cursor.execute(
         'INSERT INTO vacation (employee_id, begin_date, end_date) VALUES (%s, %s, %s) RETURNING id',
         (employee.uuid, begin_date, end_date)
