@@ -230,6 +230,7 @@ async function displayOrders(orders) {
     for (const order of orders.orders) {
         const row = document.createElement('tr')
         const uuid = document.createElement('td')
+        uuid.className = "order-uuid"
         const amount = document.createElement('td')
         const date = document.createElement('td')
 

@@ -20,8 +20,8 @@
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    
   }
+
 h2 {
     text-align: center;
 }
@@ -107,7 +107,7 @@ h2 {
   }
 
   caption {
-    caption-side: bottom;
+    caption-side: top;
     padding: 10px;
     font-weight: bold;
   }
@@ -138,5 +138,16 @@ h2 {
   tfoot td {
     font-weight: bold;
   }
-  
 
+#order-table {
+  overflow-y: scroll;
+  max-height: 200px !important;
+  
+}
+
+.order-uuid {
+  width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: keep-all;
+}
