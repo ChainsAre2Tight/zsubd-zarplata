@@ -189,7 +189,7 @@ async function sendVacationData() {
 }
 
 function displayVacations(vacations) {
-    console.log(vacations); return; // TODO remove
+    console.log(vacations); // TODO remove
 
     const display = document.getElementById('vacation-table')
     for (const vacation of vacations) {
@@ -222,7 +222,7 @@ async function getVacationData() {
 }
 
 async function displayOrders(orders) {
-    console.log(orders); return; // TODO remove
+    console.log(orders); // TODO remove
 
     const display = document.getElementById('order-table')
     for (const order of orders) {
