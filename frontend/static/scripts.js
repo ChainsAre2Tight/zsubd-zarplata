@@ -143,6 +143,8 @@ async function sendOrderData() {
             message,
             success,
         )
+
+        setTimeout(() => getOrdersData(), 1000)
     }
 
     await sendRequest(request, callback)
@@ -179,12 +181,93 @@ async function sendVacationData() {
             json.max_duration,
             json.remaining_duration,
         )
+
+        setTimeout(() => getVacationData(), 1000)
     }
 
     await sendRequest(request, callback)
 }
 
-window.addEventListener('load', async () => await getUserData())
+function displayVacations(vacations) {
+    console.log(vacations); // TODO remove
+
+    const display = document.getElementById('vacation-table')
+    display.innerHTML = ''
+    for (const vacation of vacations.vacations) {
+        const row = document.createElement('tr')
+        const begin = document.createElement('td')
+        const end = document.createElement('td')
+
+        begin.appendChild(document.createTextNode(vacation.begin_date))
+        end.appendChild(document.createTextNode(vacation.end_date))
+
+        row.appendChild(begin)
+        row.appendChild(end)
+        display.appendChild(row)
+    }
+} 
+
+async function getVacationData() {
+    const request = async () => await fetch('/api/v1/vacation/', {
+        method: 'GET',
+        headers: {'Authorization': getAuthHeader()},
+    })
+
+    const callback = async (response) => {
+        json = await response.json()
+
+        displayVacations(json)
+    }
+
+    await sendRequest(request, callback)
+}
+
+async function displayOrders(orders) {
+    console.log(orders); // TODO remove
+
+    const display = document.getElementById('order-table')
+    display.innerHTML = ''
+    for (const order of orders.orders) {
+        const row = document.createElement('tr')
+        const uuid = document.createElement('td')
+        uuid.className = "order-uuid"
+        const amount = document.createElement('td')
+        const date = document.createElement('td')
+
+        uuid.appendChild(document.createTextNode(order.uuid))
+        amount.appendChild(document.createTextNode(order.amount))
+        date.appendChild(document.createTextNode(order.date))
+
+        row.appendChild(uuid)
+        row.appendChild(date)
+        row.appendChild(amount)
+        display.appendChild(row)
+    }
+}
+
+async function getOrdersData() {
+    const request = async () => await fetch('/api/v1/order/', {
+        method: 'GET',
+        headers: {'Authorization': getAuthHeader()},
+    })
+
+    const callback = async (response) => {
+        json = await response.json()
+
+        displayOrders(json)
+    }
+
+    await sendRequest(request, callback)
+}
+
+async function loadUserData() {
+    await checkToken();
+    getUserData();
+    getVacationData();
+    getOrdersData();
+}
+
+window.addEventListener('load', async () => await loadUserData())
 document.querySelector("#self-parameters button").addEventListener(
     'click', (e) => handleEmployeePatchClick()
 )

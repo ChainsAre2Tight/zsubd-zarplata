@@ -20,8 +20,8 @@
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    
   }
+
 h2 {
     text-align: center;
 }
@@ -53,118 +53,6 @@ h2 {
     width: auto;
     background-color: #555;
   }
-
-.oval {
-    height: 100px;
-    width: 200px;
-    background-color: #555;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.triangle-right {
-	width: 0;
-	height: 0;
-	border-left: 0px solid transparent;
-	border-right: 200px solid transparent;
-	border-bottom: 50px solid #555;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.triangle-up {
-	width: 0;
-	height: 0;
-	border-left: 25px solid transparent;
-	border-right: 25px solid transparent;
-	border-bottom: 50px solid #555;
-}
-
-.hexagon {
-	width: 100px;
-	height: 55px;
-	background: red;
-	position: relative;
-}
-.hexagon:before {
-	content: "";
-	position: absolute;
-	top: -25px; 
-	left: 0;
-	width: 0;
-	height: 0;
-	border-left: 50px solid transparent;
-	border-right: 50px solid transparent;
-	border-bottom: 25px solid red;
-}
-.hexagon:after {
-	content: "";
-	position: absolute;
-	bottom: -25px; 
-	left: 0;
-	width: 0;
-	height: 0;
-	border-left: 50px solid transparent;
-	border-right: 50px solid transparent;
-	border-top: 25px solid red;
-}
-
-.octagon {
-	width: 100px;
-	height: 100px;
-	background: red;
-	position: relative;
-}
- 
-.octagon:before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;    
-	border-bottom: 29px solid red;
-	border-left: 29px solid #eee;
-	border-right: 29px solid #eee;
-	width: 42px;
-	height: 0;
-}
- .octagon:after {
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 0;    
-	border-top: 29px solid red;
-	border-left: 29px solid #eee;
-	border-right: 29px solid #eee;
-	width: 42px;
-	height: 0;
-}
-
-
-.triangle-container {
-    position: relative;
-    width: 0;
-    height: 0;
-    border-left: 250px solid transparent;
-    border-right: 250px solid transparent;
-    border-bottom: 300px solid #3498db;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.triangle {
-    position: absolute;
-    top: -250px; /* Adjust to align form in the triangle */
-    width: 220px;
-    height: 220px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .form {
     background-color: white;
@@ -209,4 +97,57 @@ h2 {
     height: 100%;
     background-color: brown;
 }
+
+#order-table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  caption {
+    caption-side: top;
+    padding: 10px;
+    font-weight: bold;
+  }
   
+  thead,
+  tfoot {
+    background-color: rgb(228 240 245);
+  }
+  
+  th,
+  td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+  }
+  
+  td:last-of-type {
+    text-align: center;
+  }
+  
+  tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+  }
+  
+  tfoot th {
+    text-align: right;
+  }
+  
+  tfoot td {
+    font-weight: bold;
+  }
+
+#order-table {
+  overflow-y: scroll;
+  max-height: 200px !important;
+  
+}
+
+.order-uuid {
+  width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: keep-all;
+}
