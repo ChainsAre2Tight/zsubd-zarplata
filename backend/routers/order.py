@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
-from backend.models.order import OrderIn, OrderOut
+from datetime import date
+
+from backend.models.order import OrderIn, OrderOut, OrderData, OrderList
 from backend.auth import get_current_user
 from backend.dependencies import get_db_connection
 
@@ -24,3 +26,33 @@ def create_order(
     result = cursor.fetchone()
     connection.commit()
     return {'uuid': result[0]}
+
+@router.get(
+    '/',
+    response_model=OrderList
+)
+def read_orders(
+        employee: get_current_user,
+        connection: get_db_connection,
+    ) -> OrderList:
+
+    cursor = connection.cursor()
+    cursor.execute(
+        '''
+        SELECT id, amount, fullfillment_date
+        FROM fulfilled_order
+        WHERE employee_id = %s
+            AND (fullfillment_date + '30 days'::interval) > CURRENT_DATE
+        ORDER BY fullfillment_date
+        ''',
+        (employee.uuid,)
+    )
+    data: list[tuple[str, float, date]] = cursor.fetchall()
+    results = [
+        OrderData(
+            uuid=order[0],
+            amount=order[1],
+            date=order[2].strftime('%Y-%m-%d'),
+        ) for order in data
+    ]
+    return OrderList(orders=results)

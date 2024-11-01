@@ -13,14 +13,7 @@
         <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
     </head>
     <body>
-        <div class="row" id="input-window">
-            <div class="col-3" id="order">
-                    <h2 class="rectangle">Добавление заказа</h2>
-                <form class="oval" action="" method="post">
-                        <input id="order-volume"type="int" name="order-volume" placeholder="Введите объем заказа">
-                </form>
-                <button class="rectangle">Добавить</button>
-            </div>
+        <div class="row" id="input-window">  
             <div class="col-3" id="self-parameters">
                 <h2 class="rectangle">Свои параметры</h2>
                 <form action="" method="post">
@@ -38,6 +31,30 @@
                 </form>
                 <button class="rectangle">Изменить</button>
             </div>
+            <div class="col-3" id="order">
+                <h2 class="rectangle">Добавление заказа</h2>
+                    <form action="" method="post">
+                        <input id="order-volume"type="int" name="order-volume" placeholder="Введите объем заказа">
+                    </form>
+                <button class="rectangle">Добавить</button>
+                <div>
+                    <table>
+                        <caption>
+                            Таблица заказов за последние 30 дней
+                        </caption>
+                        <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Объем</th>
+                              <th scope="col">Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-table">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="col-3" id="vacation">
                 <h2 class="">Отпуск</h2>
                 <form action="" method="post">
@@ -50,14 +67,27 @@
                             <td><label for="finish-day">Конец отпуска</label></td>
                             <td><input id="finish-day" type="text" name="finish-day" placeholder="Дата конца"></td>
                         </tr>
-                    </table>
+                    </table>  
                 </form>
                 <div id="progress-bar">
                     <div id="filled-progress-bar">
                     </div>
                 </div>
-                
                 <button class="rectangle">Отпустить</button>
+                <table>
+                    <caption>
+                        Заразервированные отпуска
+                    </caption>
+                    <thead>
+                        <tr>
+                          <th scope="col">Начало</th>
+                          <th scope="col">Конец</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vacation-table">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="output-window">
