@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Zarplata</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    </head>
+    <body>
+        <div class="row" id="input-window">  
+            <div class="col-3" id="self-parameters">
+                <h2 class="rectangle">Свои параметры</h2>
+                <form action="" method="post">
+                    <table>
+                        <tr>
+                            
+                            <td><label for="pay-method">Метод оплаты</label></td>
+                            <td><input id="pay-method" type="text" name="pay-method" placeholder="Введите метод оплаты"></td> 
+                        </tr>
+                        <tr>
+                            <td><label for="pay-address">Адрес чека</label></td>
+                            <td><input id="pay-address" type="text" name="pay-address" placeholder="Куда отправлять чек"></td>
+                        </tr>
+                    </table>
+                </form>
+                <button class="rectangle">Изменить</button>
+            </div>
+            <div class="col-3" id="order">
+                <h2 class="rectangle">Добавление заказа</h2>
+                    <form action="" method="post">
+                        <input id="order-volume"type="int" name="order-volume" placeholder="Введите объем заказа">
+                    </form>
+                <button class="rectangle">Добавить</button>
+                <div>
+                    <table>
+                        <caption>
+                            Таблица заказов за последние 30 дней
+                        </caption>
+                        <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Объем</th>
+                              <th scope="col">Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-table">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-3" id="vacation">
+                <h2 class="">Отпуск</h2>
+                <form action="" method="post">
+                    <table>
+                        <tr class="">
+                            <td><label for="start-day">Начало отпуска</label></td>
+                            <td><input id="start-day" type="text" name="start-day" placeholder="Дата начала"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="finish-day">Конец отпуска</label></td>
+                            <td><input id="finish-day" type="text" name="finish-day" placeholder="Дата конца"></td>
+                        </tr>
+                    </table>  
+                </form>
+                <div id="progress-bar">
+                    <div id="filled-progress-bar">
+                    </div>
+                </div>
+                <button class="rectangle">Отпустить</button>
+                <table>
+                    <caption>
+                        Заразервированные отпуска
+                    </caption>
+                    <thead>
+                        <tr>
+                          <th scope="col">Начало</th>
+                          <th scope="col">Конец</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vacation-table">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="output-window">
+            <div id="message" class="">
+                    
+                <!-- Сюда сообщение -->
+            </div>
+        </div>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <script src="{{ url_for('static', path='/scripts.js') }}" async defer></script>
+    </body>
+</html>

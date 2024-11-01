@@ -17,6 +17,7 @@ services:
       timeout: 60s
       retries: 5
       start_period: 15s
+    profiles: ['db-only', 'e2e']
   client:
     image: jbergknoff/postgresql-client
     container_name: postgres-client
@@ -32,3 +33,43 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    profiles: ['db-only']
+  backend:
+    build: ./services/backend
+    container_name: postgres-backend
+    restart: unless-stopped
+    volumes:
+      - ./backend:/usr/src/backend
+    env_file:
+      - ./services/backend/.env
+    working_dir: /usr/src/backend
+    command: fastapi dev main.py --port 5000 --host 0.0.0.0
+    expose:
+      - 5000
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles: ['e2e']
+  frontend:
+    build: ./services/frontend
+    container_name: postgres-frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/usr/src/frontend
+    ports:
+      - "5010:5010"
+    working_dir: /usr/src/frontend
+    command: fastapi dev main.py --port 5010 --host 0.0.0.0
+    expose:
+      - 5010
+    profiles: ['front-only', 'e2e']
+  nginx:
+    build: ./services/nginx
+    container_name: postgres-nginx
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    profiles: ['e2e']
+    depends_on:
+      - frontend
+      - backend
