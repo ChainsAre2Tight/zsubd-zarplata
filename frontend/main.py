@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,5 +33,11 @@ def render_index(request: Request):
         request=request,
         name='login-window.html',
     )
+
+@app.middleware('http')
+async def add_nocache_headers(request: Request, call_next):
+    response: Response = await call_next(request)
+    response.headers.update({"Cache-Control": 'no-cache'})
+    return response
 
 app.mount('/static', StaticFiles(directory='static'), name='static')
