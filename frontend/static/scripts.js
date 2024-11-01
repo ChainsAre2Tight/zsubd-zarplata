@@ -192,6 +192,7 @@ function displayVacations(vacations) {
     console.log(vacations); // TODO remove
 
     const display = document.getElementById('vacation-table')
+    display.innerHTML = ''
     for (const vacation of vacations.vacations) {
         const row = document.createElement('tr')
         const begin = document.createElement('td')
@@ -225,6 +226,7 @@ async function displayOrders(orders) {
     console.log(orders); // TODO remove
 
     const display = document.getElementById('order-table')
+    display.innerHTML = ''
     for (const order of orders.orders) {
         const row = document.createElement('tr')
         const uuid = document.createElement('td')
