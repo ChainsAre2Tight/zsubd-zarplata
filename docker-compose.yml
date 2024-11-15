@@ -20,7 +20,7 @@ services:
       start_period: 15s
     profiles: ['db-only', 'e2e']
   client:
-    image: jbergknoff/postgresql-client
+    build: './services/client'
     container_name: postgres-client
     restart: unless-stopped
     env_file:
@@ -28,7 +28,7 @@ services:
     working_dir: /usr/src/sql
     volumes:
       - ./sql:/usr/src/sql
-    command: -h postgres-server
+    command: psql -h postgres-server
     stdin_open: true
     tty: true
     depends_on:
