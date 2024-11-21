@@ -5,15 +5,22 @@ services:
     restart: unless-stopped
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+      - ./services/server/ca/server.crt:/var/lib/postgresql/server.crt
+      - ./services/server/ca/server.key:/var/lib/postgresql/server.key
+      - ./services/server/ca/root.crt:/var/lib/postgresql/root.crt
+      - ./services/server/ca/root.key:/var/lib/postgresql/root.key
+      - ./services/server/ca/postgresql.crt:/var/lib/postgresql/postgresql.crt
+      - ./services/server/ca/postgresql.key:/var/lib/postgresql/postgresql.key
     env_file:
       - ./services/server/.env.server
     ports:
       - "5435:5432"
+    command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key -c ssl_ca_file=/var/lib/postgresql/root.crt
     expose:
       - 5432
       - 22
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready", "sslmode=verify-ca", "sslrootcert=/var/lib/postgresql/root.crt"]
       interval: 5s
       timeout: 60s
       retries: 5
@@ -28,7 +35,10 @@ services:
     working_dir: /usr/src/sql
     volumes:
       - ./sql:/usr/src/sql
-    command: psql -h postgres-server
+      - ./services/server/ca/postgresql.crt:/root/.postgresql/postgresql.crt
+      - ./services/server/ca/postgresql.key:/root/.postgresql/postgresql.key
+      - ./services/server/ca/root.crt:/root/.postgresql/root.crt
+    command: psql -h postgres-server sslmode=verify-ca
     stdin_open: true
     tty: true
     depends_on:
