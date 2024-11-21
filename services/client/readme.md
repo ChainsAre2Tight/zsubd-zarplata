@@ -1,4 +1,6 @@
 # подключение
-> docker exec -it postgres-client
-# ssh
-> ssh имя_пользователя@db
+> docker exec -it postgres-client /bin/bash
+## ssh
+> ssh root@postgres-server
+### пароль: 
+> root
