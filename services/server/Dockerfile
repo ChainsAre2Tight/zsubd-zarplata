@@ -13,3 +13,5 @@ RUN apt update -y && apt install -y openssh-server
 
 # enable root login
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+RUN apt install -y openssl
