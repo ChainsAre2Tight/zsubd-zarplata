@@ -1,7 +1,8 @@
-TRUNCATE employee, workday, vacation, fulfilled_order, payrate, salary, receipt;
+TRUNCATE employee, employee_user, workday, vacation, fulfilled_order, payrate, salary, receipt;
 
 INSERT INTO employee (fio, payment_method, receipt_address)
-    VALUES ('Gofmann Igor Avraalovich', 'card 1234 5678 9012 3456', 'kvartira na peisah');
+    VALUES ('Gofmann Igor Avraalovich', 'card 1234 5678 9012 3456', 'kvartira na peisah'),
+    ('Ravellen Pazal Mironovich', 'card 1234 5678 9012 3456', 'kvartira na peisah');
 
 INSERT INTO vacation (employee_id, begin_date, end_date)
     VALUES (
@@ -57,8 +58,9 @@ INSERT INTO workday (employee_id, workday_date, entry_time, exit_time)
         '17:08:23 MSK'
     );
 
-INSERT INTO payrate (base_rate, commission, salaty_type, payment_period)
+INSERT INTO payrate (job_title, base_rate, commission, salaty_type, payment_period)
     VALUES (
+        'employee',
         500.00,
         0.05,
         'hourly',
@@ -78,11 +80,12 @@ INSERT INTO salary (employee_id, payrate_id)
     );
 
 INSERT INTO receipt (salary_id, payment_date, base_amount, comission_amount)
-        ,VALUES (
+        VALUES (
         (
             SELECT salary.id FROM salary JOIN employee
             ON salary.employee_id = employee.id
             WHERE employee.fio = 'Gofmann Igor Avraalovich'
+            LIMIT 1
         ),
         CURRENT_DATE,
         (
