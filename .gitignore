@@ -1,5 +1,6 @@
 postgres-data/*
 postgres-data-backup/*
+postgres-data-slave/*
 
 postgres-backups/*
 postgres-backups-backups/*

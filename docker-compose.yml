@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: postgres-server
+    container_name: postgres-server-master
     build: ./services/server/
     restart: unless-stopped
     volumes:
@@ -21,6 +21,43 @@ services:
       retries: 5
       start_period: 15s
     profiles: ['db-only', 'e2e']
+  db-slave:
+    container_name: postgres-server-slave
+    build: ./services/server/
+    restart: unless-stopped
+    volumes:
+      - ./postgres-data-slave:/var/lib/postgresql/data
+      - ./postgres-backups:/usr/src/backups
+    env_file:
+      - ./services/server/.env.server
+    ports:
+      - "5436:5432"
+    expose:
+      - 5432
+      - 22
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 60s
+      retries: 5
+      start_period: 15s
+    profiles: ['db-only']
+  
+  loadbalancer:
+    container_name: postgres-loadbalancer
+    build: ./services/loadbalancer
+    volumes:
+      - ./services/loadbalancer/pgpool.conf:/usr/src/pgpool.conf
+    env_file:
+      - ./services/loadbalancer/.env
+    depends_on:
+      db:
+        condition: service_healthy
+      db-slave:
+        condition: service_healthy
+    expose:
+      - 5432
+    
   db-backup:
     container_name: postgres-server-backup
     build: ./services/server/
@@ -32,7 +69,7 @@ services:
     env_file:
       - ./services/server/.env.server
     ports:
-      - "5436:5432"
+      - "5437:5432"
     expose:
       - 5432
       - 22
@@ -46,7 +83,7 @@ services:
     working_dir: /usr/src/sql
     volumes:
       - ./sql:/usr/src/sql
-    command: psql -h postgres-server
+    command: psql -h postgres-server-master
     stdin_open: true
     tty: true
     depends_on:
