@@ -5,7 +5,9 @@ set -e
 
 database=zarplata
 directory=/usr/src/backups
-max_backups=2
+max_backups=30
+backup_server=postgres-server-backup
+pwd=root
 
 echo "Starting..."
 
@@ -25,12 +27,13 @@ else
     echo There is enough space to create a backup
 fi
 
-
-
 echo "Starting backup..."
 filename=dump-${database}-"`date +"%d-%m-%Y_%H-%M-%S"`"
 
 echo Saving "${database}" to ${filename}
 pg_dump ${database} > ${directory}/${filename}
-
 echo "backup successful"
+
+echo Copying dump file to remote at ${backup_server}
+sshpass -p ${pwd} scp ${directory}/${filename} ${backup_server}:${directory}/${filename}
+echo "Remote copy successful"

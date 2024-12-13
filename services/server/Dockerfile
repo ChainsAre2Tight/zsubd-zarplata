@@ -8,6 +8,9 @@ RUN echo "root:root" | chpasswd
 # install ssh server
 RUN apt update -y && apt install -y openssh-server
 
+# install sshpass
+RUN apt install -y sshpass
+
 # enable root login
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 

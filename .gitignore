@@ -1,5 +1,8 @@
 postgres-data/*
+postgres-data-backup/*
+
 postgres-backups/*
+postgres-backups-backups/*
 .venv
 __pycache__
 
