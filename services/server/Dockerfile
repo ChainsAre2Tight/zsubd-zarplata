@@ -16,3 +16,5 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/
 
 # copy entrypoint files
 COPY ./init.sql /docker-entrypoint-initdb.d/
+
+RUN echo "postgres:postgres" | chpasswd

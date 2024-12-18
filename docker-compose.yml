@@ -47,7 +47,8 @@ services:
     container_name: postgres-loadbalancer
     build: ./services/loadbalancer
     volumes:
-      - ./services/loadbalancer/pgpool.conf:/usr/src/pgpool.conf
+      - ./services/loadbalancer/pgpool.conf:/usr/local/pgpool.conf
+      - ./services/loadbalancer/failover.sh:/usr/src/failover.sh
     env_file:
       - ./services/loadbalancer/.env
     depends_on:
@@ -56,7 +57,8 @@ services:
       db-slave:
         condition: service_healthy
     expose:
-      - 5432
+      - 9999
+      - 9898
     
   db-backup:
     container_name: postgres-server-backup
